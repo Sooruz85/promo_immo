@@ -1,4 +1,4 @@
-// 37 appartements avec données mockées
+// 37 appartements avec données mockées (déterministes pour éviter les erreurs d'hydratation)
 const apartmentTypes = ['T1', 'T2', 'T3', 'T4'];
 const floors = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 const availabilities = ['Disponible', 'Réservé', 'Vendu'];
@@ -27,14 +27,23 @@ const planImageIds = [
   '1484154218962-a197022b5858', // Architecture
 ];
 
+// Fonction déterministe pour générer des valeurs pseudo-aléatoires basées sur un seed
+const seededRandom = (seed) => {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
+};
+
 const generateApartments = () => {
   const apartments = [];
   
   for (let i = 1; i <= 37; i++) {
-    const type = apartmentTypes[Math.floor(Math.random() * apartmentTypes.length)];
-    const floor = floors[Math.floor(Math.random() * floors.length)];
-    const availability = availabilities[Math.floor(Math.random() * availabilities.length)];
-    const orientation = orientations[Math.floor(Math.random() * orientations.length)];
+    // Utiliser l'index comme seed pour garantir la reproductibilité
+    const seed = i * 12345; // Multiplicateur pour varier les résultats
+    
+    const type = apartmentTypes[Math.floor(seededRandom(seed) * apartmentTypes.length)];
+    const floor = floors[Math.floor(seededRandom(seed + 1) * floors.length)];
+    const availability = availabilities[Math.floor(seededRandom(seed + 2) * availabilities.length)];
+    const orientation = orientations[Math.floor(seededRandom(seed + 3) * orientations.length)];
     
     // Surfaces réalistes selon le type
     const surfaceMap = {
@@ -44,10 +53,10 @@ const generateApartments = () => {
       'T4': [85, 110],
     };
     const [minSurface, maxSurface] = surfaceMap[type];
-    const surface = Math.floor(Math.random() * (maxSurface - minSurface + 1)) + minSurface;
+    const surface = Math.floor(seededRandom(seed + 4) * (maxSurface - minSurface + 1)) + minSurface;
     
     // Prix selon surface et type
-    const pricePerSqm = 3500 + Math.floor(Math.random() * 1000);
+    const pricePerSqm = 3500 + Math.floor(seededRandom(seed + 5) * 1000);
     const price = surface * pricePerSqm;
     
     apartments.push({

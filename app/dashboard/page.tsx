@@ -1,25 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '@/lib/auth';
 import Layout from '@/components/Layout';
 import Card from '@/components/Card';
 import { apartments } from '@/data/apartments';
 
 export default function DashboardPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push('/login');
-    }
-  }, [router]);
-
-  if (!isAuthenticated()) {
-    return null;
-  }
-
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

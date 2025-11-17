@@ -1,9 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Image from 'next/image';
-import { isAuthenticated } from '@/lib/auth';
 import Layout from '@/components/Layout';
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
@@ -13,16 +12,6 @@ export default function ApartmentDetailPage() {
   const router = useRouter();
   const params = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push('/login');
-    }
-  }, [router]);
-
-  if (!isAuthenticated()) {
-    return null;
-  }
 
   const apartmentId = parseInt(params.id as string);
   const apartment = apartments.find((apt) => apt.id === apartmentId);

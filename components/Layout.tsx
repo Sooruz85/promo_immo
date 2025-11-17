@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { logout } from '@/lib/auth';
+import { logout, isAuthenticated } from '@/lib/auth';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -25,12 +25,14 @@ export default function Layout({ children }: LayoutProps) {
                 Résidence Les Jardins
               </h1>
             </div>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
-            >
-              Déconnexion
-            </button>
+            {isAuthenticated() && (
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+              >
+                Déconnexion
+              </button>
+            )}
           </div>
         </div>
       </nav>

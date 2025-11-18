@@ -1,8 +1,35 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Button from '@/components/Button';
+import Input from '@/components/Input';
+
+const stats = [
+  { value: '37', label: 'Appartements exclusifs' },
+  { value: '4', label: 'Typologies du T1 au T4' },
+  { value: '8', label: 'Étage maximum' },
+  { value: '2023', label: 'Livraison & normes RE2020' },
+];
+
+const steps = [
+  {
+    title: 'Diagnostic & écoute',
+    description:
+      'Nous comprenons vos objectifs patrimoniaux et affinons la recherche selon vos priorités.',
+  },
+  {
+    title: 'Sélection sur mesure',
+    description:
+      'Plan, orientation, budget : nous construisons un dossier complet pour chaque appartement retenu.',
+  },
+  {
+    title: 'Accompagnement complet',
+    description:
+      'Mise en relation avec notre agent référent, suivi des démarches et accès au back office client.',
+  },
+];
 
 export default function HomePage() {
   const router = useRouter();
@@ -24,6 +51,14 @@ export default function HomePage() {
                 className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
               >
                 Appartements
+              </button>
+              <button
+                onClick={() =>
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                }
+                className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+              >
+                Contact
               </button>
             </div>
           </div>
@@ -61,6 +96,24 @@ export default function HomePage() {
                   priority
                 />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats */}
+        <section className="bg-white -mt-16 relative z-10">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white rounded-2xl shadow-soft p-6">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <p className="text-3xl font-semibold text-text-primary">
+                    {stat.value}
+                  </p>
+                  <p className="text-sm text-text-secondary mt-2">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -153,18 +206,83 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section */}
+        {/* Parcours client */}
         <section className="py-20">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-semibold text-text-primary mb-4">
-              Prêt à découvrir votre futur appartement ?
-            </h2>
-            <p className="text-lg text-text-secondary mb-8">
-              Explorez notre sélection de 37 appartements et trouvez celui qui correspond à vos attentes
-            </p>
-            <Button onClick={() => router.push('/dashboard')}>
-              Voir tous les appartements
-            </Button>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl font-semibold text-text-primary mb-4">
+                  Un accompagnement structuré
+                </h2>
+                <p className="text-text-secondary mb-8">
+                  Nous appliquons la méthode Helping Clients Succeed pour
+                  sécuriser votre décision et fluidifier chaque étape.
+                </p>
+                <div className="space-y-6">
+                  {steps.map((step, index) => (
+                    <div key={step.title} className="flex gap-4">
+                      <div className="w-10 h-10 rounded-full bg-pastel-blue text-blue-700 flex items-center justify-center font-semibold">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-text-primary">
+                          {step.title}
+                        </h3>
+                        <p className="text-text-secondary text-sm">
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-gradient-to-br from-white to-pastel-blue/60 rounded-2xl p-10 shadow-soft-lg">
+                <h3 className="text-2xl font-semibold text-text-primary mb-4">
+                  Résidence Les Jardins en bref
+                </h3>
+                <ul className="space-y-4 text-text-secondary">
+                  <li>• Architecture contemporaine et halls conçus par un studio parisien</li>
+                  <li>• Certifié RE2020 avec solutions domotiques intégrées</li>
+                  <li>• Espaces verts privatifs, potager partagé et rooftop pour les résidents</li>
+                  <li>• Parking sécurisé, bornes de recharge et local vélos</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 bg-soft-grey" id="contact">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white rounded-3xl p-10 shadow-soft-lg grid md:grid-cols-2 gap-8">
+              <div>
+                <h2 className="text-3xl font-semibold text-text-primary mb-4">
+                  Prêt à être recontacté ?
+                </h2>
+                <p className="text-text-secondary mb-6">
+                  Expliquez-nous votre projet, nous vous proposerons une
+                  sélection d’appartements en moins de 24h.
+                </p>
+                <div className="space-y-3 text-sm text-text-secondary">
+                  <p>• Visites privées sur rendez-vous</p>
+                  <p>• Dossier numérique complet (plans, vues 3D, budgets)</p>
+                  <p>• Accès direct à l’agent référent</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <Input placeholder="Nom complet" />
+                <Input placeholder="Email professionnel" type="email" />
+                <Input placeholder="Téléphone" type="tel" />
+                <textarea
+                  rows={4}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-colors resize-none"
+                  placeholder="Votre projet en quelques mots..."
+                />
+                <Button onClick={() => router.push('/dashboard')}>
+                  Découvrir la sélection
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
       </main>
@@ -185,10 +303,19 @@ export default function HomePage() {
               <h3 className="text-lg font-semibold text-text-primary mb-4">
                 Contact
               </h3>
-              <p className="text-sm text-text-secondary">
-                Email: contact@residence-les-jardins.fr
-                <br />
-                Téléphone: +33 1 23 45 67 89
+              <p className="text-sm text-text-secondary space-y-2">
+                <a
+                  href="mailto:contact@residence-les-jardins.fr"
+                  className="block hover:text-blue-600 transition-colors"
+                >
+                  contact@residence-les-jardins.fr
+                </a>
+                <a
+                  href="tel:+33123456789"
+                  className="block hover:text-blue-600 transition-colors"
+                >
+                  +33 1 23 45 67 89
+                </a>
               </p>
             </div>
             <div>
@@ -200,6 +327,25 @@ export default function HomePage() {
                 <br />
                 Du T1 au T4
               </p>
+              <Link
+                href="/cgv"
+                className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium mt-4"
+              >
+                Consulter les CGV
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-200 text-center">

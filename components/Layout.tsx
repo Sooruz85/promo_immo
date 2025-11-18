@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { logout, isAuthenticated } from '@/lib/auth';
 
@@ -76,10 +77,19 @@ export default function Layout({ children }: LayoutProps) {
               <h3 className="text-lg font-semibold text-text-primary mb-4">
                 Contact
               </h3>
-              <p className="text-sm text-text-secondary">
-                Email: contact@residence-les-jardins.fr
-                <br />
-                Téléphone: +33 1 23 45 67 89
+              <p className="text-sm text-text-secondary space-y-2">
+                <a
+                  href="mailto:contact@residence-les-jardins.fr"
+                  className="block hover:text-blue-600 transition-colors"
+                >
+                  contact@residence-les-jardins.fr
+                </a>
+                <a
+                  href="tel:+33123456789"
+                  className="block hover:text-blue-600 transition-colors"
+                >
+                  +33 1 23 45 67 89
+                </a>
               </p>
             </div>
             <div>
@@ -91,6 +101,25 @@ export default function Layout({ children }: LayoutProps) {
                 <br />
                 Du T1 au T4
               </p>
+              <Link
+                href="/cgv"
+                className="inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium mt-4"
+              >
+                Consulter les CGV
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-200 text-center">
